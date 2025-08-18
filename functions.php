@@ -12,7 +12,7 @@ function pat_table_creator()
             centro_regional varchar(50) NOT NULL,
             func_responsavel varchar(50) NOT NULL,
             endereco varchar (250) NOT NULL,
-            telefone varchar (250) NOT NULL,
+            telefone text (250) NOT NULL,
             email varchar (50) NOT NULL,
 
             PRIMARY KEY id(id)
