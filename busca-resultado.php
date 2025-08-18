@@ -23,12 +23,11 @@ if(isset($_POST['input'])){
                 <thead>
                     <tr>
                         <th>ID</th>  
-                        <th>categoria</th>
-                        <th>titulo</th>  
-                        <th>autor</th>
-                        <th>ano</th>
-                        <th>link</th>
-                        <!-- <th>Telefone</th> -->
+                        <th>Categoria</th>
+                        <th>Titulo</th>  
+                        <th>Autor</th>
+                        <th>Ano</th>
+                        <th>Link</th>
                         <th>Editar</th>
                         <th>Deletar</th>
                     </tr>
@@ -38,11 +37,11 @@ if(isset($_POST['input'])){
                     foreach($query as $row){?>
                     <tr>
                         <td><?php echo $row->id;?></td>
-                        <td><?php echo $row->endereco;?></td>
-                        <td><?php echo $row->municipios;?></td>
-                        <td><?php echo $row->email;?></td>
-                        <td><?php echo $row->centro_regional;?></td>
-                        <td><?php echo $row->func_responsavel;?></td>
+                        <td><?php echo $row->categoria;?></td>
+                        <td><?php echo $row->titulo;?></td>
+                        <td><?php echo $row->autor;?></td>
+                        <td><?php echo $row->ano;?></td>
+                        <td><?php echo $row->link;?></td>
                         <!-- <td><?php //echo $row->telefone;?></td> -->
                         <td><a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">EDITAR</a></td>
                         <td><a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">DELETAR</a></td>
