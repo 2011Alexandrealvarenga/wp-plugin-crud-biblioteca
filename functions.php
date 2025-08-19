@@ -3,16 +3,16 @@ function pat_table_creator()
 {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     $sql = "DROP TABLE IF EXISTS $table_name;
             CREATE TABLE $table_name(
             id mediumint(11) NOT NULL AUTO_INCREMENT,
 
-            categoria varchar(50) NOT NULL,
-            titulo varchar(50) NOT NULL,
-            autor varchar(50) NOT NULL,
-            ano varchar (250) NOT NULL,
-            link text (250) NOT NULL,
+            categoria varchar(200) NOT NULL,
+            titulo TEXT NOT NULL,
+            autor varchar(500) NOT NULL,
+            ano varchar (200) NOT NULL,
+            link text (200) NOT NULL,
 
             PRIMARY KEY id(id)
             )$charset_collate;";
@@ -34,7 +34,7 @@ function pat_da_display_esm_menu()
 function da_PAT_list_callback()
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     $msg = '';
     if (isset($_REQUEST['submit'])) {
         $wpdb->insert("$table_name", [
@@ -107,7 +107,7 @@ function da_PAT_list_callback()
     </div>
     <?php 
 
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     $employee_list = $wpdb->get_results($wpdb->prepare("select * FROM $table_name ORDER BY titulo asc "), ARRAY_A);
     if (count($employee_list) > 0): ?>  
 
@@ -192,7 +192,7 @@ function pat_da_emp_update_call()
     $url2 = '/wp-admin/admin.php?page=pat-emp-list';
     $urlvoltar = $url.$url2;
 
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     $msg = '';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     
@@ -271,7 +271,7 @@ function pat_da_emp_update_call()
 function pat_da_emp_delete_call()
 {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     if (isset($_REQUEST['delete'])) {
         if ($_REQUEST['conf'] == 'yes') {
@@ -301,7 +301,7 @@ function pat_da_emp_delete_call()
 function cwpai_exclude_data_from_xyztable() {
     global $wpdb;
     
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
     
     $sql = $wpdb->prepare(
         "DELETE FROM $table_name WHERE categoria IS NOT NULL AND titulo IS NOT NULL AND autor IS NOT NULL AND ano IS NOT NULL AND link IS NOT NULL"
@@ -313,7 +313,7 @@ function cwpai_exclude_data_from_xyztable() {
 function cwpai_insert_data_into_pat_table() {
     global $wpdb;
 
-    $table_name = $wpdb->prefix . 'pat';
+    $table_name = $wpdb->prefix . 'biblioteca';
 
     $sql = $wpdb->prepare(
         "INSERT INTO $table_name (categoria, titulo, autor, ano, link)

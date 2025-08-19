@@ -4,7 +4,7 @@ global $wpdb;
 require_once('../../../wp-config.php');
 if(isset($_POST['input'])){
     $input = $_POST['input'];
-    $query = $wpdb->get_results("SELECT * FROM wp_pat WHERE 
+    $query = $wpdb->get_results("SELECT * FROM wp_biblioteca WHERE 
         endereco LIKE '%{$input}%' OR 
         municipios LIKE '%{$input}%' OR 
         email LIKE '%{$input}%'

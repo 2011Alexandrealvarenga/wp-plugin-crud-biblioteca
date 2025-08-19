@@ -1,8 +1,8 @@
 <?php
 /*
- * Plugin Name: Biblioteca - Unidades
+ * Plugin Name: Biblioteca Digital
  * Description: Plugin para Inserir, atualizar, ler e deletar Unidade Biblioteca
- * Version: 1.0
+ * Version: 2.0
  * Author: Alexandre Alvarenga
  * Plugin URI: 
  * Author URI: 
