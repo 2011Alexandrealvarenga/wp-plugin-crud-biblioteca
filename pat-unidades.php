@@ -17,7 +17,9 @@ if(!function_exists('add_action')){
 define('PAT_PLUGIN_URL', __FILE__);
 
 register_activation_hook(PAT_PLUGIN_URL, 'pat_table_creator');
-register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
+// register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
+// Hook de desinstalação
+register_uninstall_hook(__FILE__, 'biblioteca_plugin_uninstall');
 
 // includes
 include('functions.php');

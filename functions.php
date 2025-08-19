@@ -1,4 +1,15 @@
 <?php 
+function biblioteca_plugin_uninstall() {
+    global $wpdb;
+    
+    // Excluir tabela
+    $table_name = $wpdb->prefix . 'biblioteca';
+    $wpdb->query("DROP TABLE IF EXISTS $table_name");
+    
+    // Limpar quaisquer opções relacionadas
+    delete_option('biblioteca_db_version');
+}
+
 function pat_table_creator()
 {
     global $wpdb;
@@ -13,6 +24,7 @@ function pat_table_creator()
             autor varchar(500) NOT NULL,
             ano varchar (200) NOT NULL,
             link text (200) NOT NULL,
+            palavra_chave text (200) NOT NULL,
 
             PRIMARY KEY id(id)
             )$charset_collate;";
@@ -89,12 +101,12 @@ function da_PAT_list_callback()
                 <input type="text" name="link" ><br>
             </div>
            
-            <!-- <div class="cont">
+            <div class="cont">
                 <div class="esq">
-                    <span>Telefone</span>
+                    <span>Palavras-Chave</span>
                 </div>
-                <input type="text" name="telefone" ><br>
-            </div> -->
+                <input type="text" name="palavra_chave" ><br>
+            </div>
             
             <div class="cont">
                 <div class="esq">
@@ -160,7 +172,7 @@ function resultado_busca($employee_list){?>
             <th>Autor(a)</th>
             <th>Ano</th>
             <th>Link</th>
-            <!-- <th>Telefone</th> -->
+            <th>Palavras-Chave</th>
 
             <th>Editar</th>
             <th>Deletar</th>
@@ -174,7 +186,7 @@ function resultado_busca($employee_list){?>
                 <td><?php echo $employee['autor']; ?></td>
                 <td><?php echo $employee['ano']; ?></td>
                 <td><?php echo $employee['link']; ?></td>
-                <!-- <td><?php //echo $employee['telefone']; ?></td> -->
+                <td><?php echo $employee['palavra_chave']; ?></td>
 
                 <td><a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">EDITAR</a></td>
                 <td><a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">DELETAR</a></td>
@@ -231,13 +243,12 @@ function pat_da_emp_update_call()
                 </div>
                 <input type="text" name="link" value="<?php echo $employee_details['link']; ?>" ><br>
             </div>
-           
-            <!-- <div class="cont">
+            <div class="cont">
                 <div class="esq">
-                    <span>Telefone</span>
+                    <span>Palavras Chave</span>
                 </div>
-                <input type="text" name="telefone" value="<?php //echo $employee_details['telefone']; ?>" ><br>
-            </div> -->
+                <input type="text" name="palavra_chave" value="<?php echo $employee_details['palavra_chave']; ?>" ><br>
+            </div>
             
             <div class="cont">
                 <div class="esq">
@@ -254,6 +265,7 @@ function pat_da_emp_update_call()
                                     "titulo" => $_REQUEST['titulo'],
                                     "autor" => $_REQUEST['autor'],
                                     'ano' => $_REQUEST['ano'], 
+                                    'palavra_chave' => $_REQUEST['palavra_chave'], 
                                     'link' => $_REQUEST['link']
                             ], ["id" => $id]);
                                 $msg = 'Atualização realizada!';
@@ -316,17 +328,23 @@ function cwpai_insert_data_into_pat_table() {
     $table_name = $wpdb->prefix . 'biblioteca';
 
     $sql = $wpdb->prepare(
-        "INSERT INTO $table_name (categoria, titulo, autor, ano, link)
+        "INSERT INTO $table_name (categoria, titulo, autor, ano, link, palavra_chave)
         VALUES
 
-('Sustentabilidade e ODS ','A Política Pública de Compras Sustentáveis no Governo do Ceará','Otávio Nunes de Vasconcelos Francisco Roberto Pinto','2016','https://bdtd.ibict.br/vufind/Record/UECE-0_8d7403a446867dafcd840d36f6686a75/Details'),
-('Sustentabilidade e ODS ','A certificação ambiental como requisito de sustentabilidade e ecoeficiência nas compras públicas','Bernardi, Luiz Agnaldo','2019','https://bdtd.ibict.br/vufind/Record/UFPR_f6197730732912c483d7b0811d864e87'),
-('Logística e Gestão de Suprimentos','A inovação como um vetor de mudança no processo de compra pública da agricultura familiar oriunda do PNAE','Oliveira Júnior, José Mendes de','2021','https://bdtd.ibict.br/vufind/Record/UNB_e83456194b73722012f4e335a3152c14'),
-('Sustentabilidade e ODS ','Compras públicas sustentáveis: análise dos stakeholders de uma instituição federal de ensino do nordeste brasileiro','Castro, Marfisa Carla de Abreu Maciel','2021','https://bdtd.ibict.br/vufind/Record/UFOR_521bd0be9e411b265317c830bc193f84'),
-('Sustentabilidade e ODS ','Em direção aos processos sustentáveis em compras públicas : uma investigação no contexto de uma instituição de ensino superior','SOUZA, Maria Isabel Teófilo de','2023','https://bdtd.ibict.br/vufind/Record/UFPE_be2b02e6a1a8b12f49d9b3240c698b8c')
-        
+('Sustentabilidade e ODS ','A Política Pública de Compras Sustentáveis no Governo do Ceará','Otávio Nunes de Vasconcelos Francisco Roberto Pinto','2016','https://bdtd.ibict.br/vufind/Record/UECE-0_8d7403a446867dafcd840d36f6686a75/Details','compras, governo, ceará, política, pública'),
+('Sustentabilidade e ODS ','A certificação ambiental como requisito de sustentabilidade e ecoeficiência nas compras públicas','Bernardi, Luiz Agnaldo','2019','https://bdtd.ibict.br/vufind/Record/UFPR_f6197730732912c483d7b0811d864e87','compras, públicas, certificação, ambiental, requisito'),
+('Logística e Gestão de Suprimentos','A inovação como um vetor de mudança no processo de compra pública da agricultura familiar oriunda do PNAE','Oliveira Júnior, José Mendes de','2021','https://bdtd.ibict.br/vufind/Record/UNB_e83456194b73722012f4e335a3152c14','agricultura, familiar, pnae, entre, inovação'),
+('Sustentabilidade e ODS ','Compras públicas sustentáveis: análise dos stakeholders de uma instituição federal de ensino do nordeste brasileiro','Castro, Marfisa Carla de Abreu Maciel','2021','https://bdtd.ibict.br/vufind/Record/UFOR_521bd0be9e411b265317c830bc193f84','compras, públicas, sustentáveis, stakeholders, análise'),
+('1 Sustentabilidade e ODS ','Compras públicas sustentáveis: análise dos stakeholders de uma instituição federal de ensino do nordeste brasileiro','Castro, Marfisa Carla de Abreu Maciel','2021','https://bdtd.ibict.br/vufind/Record/UFOR_521bd0be9e411b265317c830bc193f84','compras, públicas, sustentáveis, stakeholders, análise testetestando'),
+('categoria ','titulo','autor','ano','link','palavra chave'),
+
+('Sustentabilidade e ODS ','Em direção aos processos sustentáveis em compras públicas : uma investigação no contexto de uma instituição de ensino superior','SOUZA, Maria Isabel Teófilo de','2023','https://bdtd.ibict.br/vufind/Record/UFPE_be2b02e6a1a8b12f49d9b3240c698b8c','processos, sustentáveis, compras, públicas, direção')
+      
         ");
 
      $wpdb->query($sql);    
 }
+
+
+
 

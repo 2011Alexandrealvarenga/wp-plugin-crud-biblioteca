@@ -27,6 +27,8 @@ if(isset($_POST['input'])){
                         <th>Autor</th>
                         <th>Ano</th>
                         <th>Link</th>
+                        <th>Palavras-Chave</th>
+
                         <th>Editar</th>
                         <th>Deletar</th>
                     </tr>
@@ -41,7 +43,7 @@ if(isset($_POST['input'])){
                         <td><?php echo $row->autor;?></td>
                         <td><?php echo $row->ano;?></td>
                         <td><?php echo $row->link;?></td>
-                        <!-- <td><?php //echo $row->telefone;?></td> -->
+                        <td><?php echo $row->palavra_chave;?></td>
                         <td><a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">EDITAR</a></td>
                         <td><a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">DELETAR</a></td>
                     </tr>
