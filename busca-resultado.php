@@ -5,13 +5,12 @@ require_once('../../../wp-config.php');
 if(isset($_POST['input'])){
     $input = $_POST['input'];
     $query = $wpdb->get_results("SELECT * FROM wp_biblioteca WHERE 
-        endereco LIKE '%{$input}%' OR 
-        municipios LIKE '%{$input}%' OR 
-        email LIKE '%{$input}%'
-        -- centro_regional LIKE '%{$input}%' OR
-        -- func_responsavel LIKE '%{$input}%' OR 
-        -- telefone LIKE '%{$input}%' OR 
-        LIMIT 5
+        categoria LIKE '%{$input}%' OR
+        titulo LIKE '%{$input}%' OR 
+        autor LIKE '%{$input}%' OR 
+        ano LIKE '%{$input}%' OR 
+        link LIKE '%{$input}%'
+        LIMIT 20
     ");
 
     if($query > 0){
