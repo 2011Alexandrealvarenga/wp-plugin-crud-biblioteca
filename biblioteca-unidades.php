@@ -16,7 +16,7 @@ if(!function_exists('add_action')){
 // setup
 define('BIBLIOTECA_PLUGIN_URL', __FILE__);
 
-register_activation_hook(BIBLIOTECA_PLUGIN_URL, 'biblioteca_table_creator');
+register_activation_hook(__FILE__, 'biblioteca_table_creator');
 // register_uninstall_hook(BIBLIOTECA_PLUGIN_URL, 'biblioteca_plugin');
 // Hook de desinstalação
 register_uninstall_hook(__FILE__, 'biblioteca_plugin_uninstall');
@@ -37,6 +37,7 @@ register_deactivation_hook(__FILE__, 'exclude_data_from_biblioteca');
 
 
 // insere dados no banco
-register_activation_hook(__FILE__, 'cwpai_insert_data_into_biblioteca_table');
+// register_activation_hook(__FILE__, 'cwpai_insert_data_into_biblioteca_table');
+
 
 
