@@ -10,7 +10,7 @@ function biblioteca_plugin_uninstall() {
     delete_option('biblioteca_db_version');
 }
 
-function pat_table_creator()
+function biblioteca_table_creator()
 {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
@@ -33,18 +33,18 @@ function pat_table_creator()
     dbDelta($sql);
 }
 
-function pat_da_display_esm_menu()
+function biblioteca_da_display_esm_menu()
 {
-    add_menu_page('Biblioteca Unidades', 'Biblioteca Unidades', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback','', 8);
-    add_submenu_page('pat-emp-list', 'Biblioteca - Lista', 'Biblioteca - Lista', 'manage_options', 'pat-emp-list', 'da_PAT_list_callback');
-    add_submenu_page(null, 'Biblioteca Atualiza', 'Biblioteca Atualiza', 'manage_options', 'update-pat', 'pat_da_emp_update_call');
-    add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-pat', 'pat_da_emp_delete_call');
+    add_menu_page('Biblioteca Unidades', 'Biblioteca Unidades', 'manage_options', 'biblioteca-emp-list', 'da_biblioteca_list_callback','', 8);
+    add_submenu_page('biblioteca-emp-list', 'Biblioteca - Lista', 'Biblioteca - Lista', 'manage_options', 'biblioteca-emp-list', 'da_biblioteca_list_callback');
+    add_submenu_page(null, 'Biblioteca Atualiza', 'Biblioteca Atualiza', 'manage_options', 'update-biblioteca', 'biblioteca_da_emp_update_call');
+    add_submenu_page(null, 'Delete Employee', 'Delete Employee', 'manage_options', 'delete-biblioteca', 'biblioteca_da_emp_delete_call');
 }
 
 //[employee_list]
-// add_shortcode('employee_list', 'da_PAT_list_callback');
+// add_shortcode('employee_list', 'da_biblioteca_list_callback');
 
-function da_PAT_list_callback()
+function da_biblioteca_list_callback()
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'biblioteca';
@@ -67,7 +67,7 @@ function da_PAT_list_callback()
     }
 
     ?>
-    <div class="content-pat">
+    <div class="content-biblioteca">
         <h1 class="title">Biblioteca - Unidades</h1>
         <h2 class="subtitle">Cadastro de Unidade</h2>
         <form method="post">
@@ -119,7 +119,7 @@ function da_PAT_list_callback()
             <div class="cont">
                 <div class="esq">
                     <h4 id="msg" class="alert"><?php echo $msg; ?></h4>
-                    <button class="btn-pat" type="submit" name="submit">CADASTRAR</button>
+                    <button class="btn-biblioteca" type="submit" name="submit">CADASTRAR</button>
 
                 </div>
             </div>           
@@ -143,7 +143,7 @@ function da_PAT_list_callback()
                 $("#live_search").keyup(function(){
                     var input = $(this).val();
                     // alert(input);
-                    var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/Wordpress-Plugin-CRUD-PAT/busca-resultado.php";
+                    var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/Wordpress-Plugin-CRUD-biblioteca/busca-resultado.php";
                     
                     if(input != ""){
                         $.ajax({                      
@@ -198,20 +198,20 @@ function resultado_busca($employee_list){?>
                 <td><?php echo $employee['link']; ?></td>
                 <td><?php echo $employee['palavra_chave']; ?></td>
 
-                <td><a href="admin.php?page=update-pat&id=<?php echo $employee['id']; ?>" class="btn-editar">EDITAR</a></td>
-                <td><a href="admin.php?page=delete-pat&id=<?php echo $employee['id']; ?>" class="btn-deletar">DELETAR</a></td>
+                <td><a href="admin.php?page=update-biblioteca&id=<?php echo $employee['id']; ?>" class="btn-editar">EDITAR</a></td>
+                <td><a href="admin.php?page=delete-biblioteca&id=<?php echo $employee['id']; ?>" class="btn-deletar">DELETAR</a></td>
             </tr>
         <?php endforeach; ?>
     </table>
 
 <?php }
 
-function pat_da_emp_update_call()
+function biblioteca_da_emp_update_call()
 {
     global $wpdb;
     
     $url = site_url();
-    $url2 = '/wp-admin/admin.php?page=pat-emp-list';
+    $url2 = '/wp-admin/admin.php?page=biblioteca-emp-list';
     $urlvoltar = $url.$url2;
 
     $table_name = $wpdb->prefix . 'biblioteca';
@@ -219,7 +219,7 @@ function pat_da_emp_update_call()
     $id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : "";
     
     $employee_details = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name where id = %d", $id), ARRAY_A); ?>
-   <div class="content-pat">
+   <div class="content-biblioteca">
         <h1 class="title">Biblioteca - Unidades</h1>
         <h2 class="subtitle">Atualização de Cadastro de Unidade</h2>
         <form method="post">  
@@ -268,7 +268,7 @@ function pat_da_emp_update_call()
             
             <div class="cont">
                 <div class="esq">
-                    <button class="btn-pat" type="submit" name="update">ATUALIZAR</button>
+                    <button class="btn-biblioteca" type="submit" name="update">ATUALIZAR</button>
                 </div>
             </div>
             <div class="cont">
@@ -297,7 +297,7 @@ function pat_da_emp_update_call()
         </form>
 <?php }
 
-function pat_da_emp_delete_call()
+function biblioteca_da_emp_delete_call()
 {
     global $wpdb;
     $table_name = $wpdb->prefix . 'biblioteca';
@@ -309,10 +309,10 @@ function pat_da_emp_delete_call()
                 $wpdb->delete("$table_name", array('id' => $id,));
             }
         } ?>
-        <script>location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=pat-emp-list";</script>
+        <script>location.href = "<?php echo site_url(); ?>/wp-admin/admin.php?page=biblioteca-emp-list";</script>
     <?php } ?>
     <form method="post">
-        <div class="content-pat">
+        <div class="content-biblioteca">
             <h1 class="title">Biblioteca - Unidades</h1>
             <h2 class="subtitle">Exclusão de cadastro de Unidade</h2>
 
@@ -320,14 +320,14 @@ function pat_da_emp_delete_call()
             <input type="radio" name="conf" value="yes" checked>Sim
             <input type="radio" name="conf" value="no" >Não  <br><br>      
         
-            <button class="btn-pat" type="submit" name="delete">OK</button>
+            <button class="btn-biblioteca" type="submit" name="delete">OK</button>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
         </div>        
     </form>
 <?php 
 }
 
-function cwpai_exclude_data_from_xyztable() {
+function exclude_data_from_biblioteca() {
     global $wpdb;
     
     $table_name = $wpdb->prefix . 'biblioteca';
@@ -340,7 +340,7 @@ function cwpai_exclude_data_from_xyztable() {
 }
 // insere os valores para o banco
 
-function cwpai_insert_data_into_pat_table() {
+function cwpai_insert_data_into_biblioteca_table() {
     global $wpdb;
 
     $table_name = $wpdb->prefix . 'biblioteca';
@@ -497,7 +497,7 @@ array('4.1','Planejamento de compras',' A introdução da circularidade nas comp
 array('4.2','Gestão de estoques','Compras públicas compartilhadas: uma análise sobre os principais antecedentes ao processo de formação de redes de compras entre hospitais públicos  ','Limberger, Anderson Luiz','2022','https://bdtd.ibict.br/vufind/Record/USIN_e2f2c8f5cae70e37d13cde9e9b44cc52','compras, compartilhadas, principais, antecedentes, processo'),
 array('4.2','Gestão de estoques','Avaliação da gestão de compras públicas de tecnologia da informação na Universidade de Brasília  ','Tolentino, Luciano Cordova','2021','https://bdtd.ibict.br/vufind/Record/UNB_395c4a4868ae0d64d9ae614670ea3f00','gestão, compras, públicas, avaliação, tecnologia'),
 array('4.2','Gestão de estoques','Gestão de compras públicas: uma proposta para melhorar o processo de compras em um setor de saúde pública  ','Reis, José Hildebrando Oliveira dos','2017','https://bdtd.ibict.br/vufind/Record/UFAM_3f09f4810c7a1599bc6d05fabe9604b0','compras, proposta, processo, saúde, estudo'),
-array('4.2','Gestão de estoques','Inovação organizacional em compras públicas: análise da acurácia do planejamento participativo do Instituto Federal do Triângulo Mineiro de 2013 a 2016','Avigo, Ricardo Oliveira','2018','https://bdtd.uftm.edu.br/handle/tede/748','inovação, organizacional, compras, públicas, análise'),
+array('4.2','Gestão de estoques','Inovação organizacional em compras públicas: análise da acurácia do planejamento particibibliotecaivo do Instituto Federal do Triângulo Mineiro de 2013 a 2016','Avigo, Ricardo Oliveira','2018','https://bdtd.uftm.edu.br/handle/tede/748','inovação, organizacional, compras, públicas, análise'),
 array('4.2','Gestão de estoques','Mapeamento do processo de compras públicas: uma ferramenta para gestão de materiais em saúde  ','Faria, Suzi da Silva','2017','https://bdtd.ibict.br/vufind/Record/UFF-2_eafd60c141cb46ce7a5e6c678e737f79','mapeamento, compras, gestão, material, processo'),
 array('4.3','Eficiência operacional','Appraisal of the efficiency of the tender adjudication method in public procurement of construction projects in South Africa ','Babalwa Damba','2025','https://core.ac.uk/download/pdf/11777509.pdf','Adjudicação de licitações, contratação pública, construção civil, eficiência, transparência, África do Sul, PPPFA, Western Cape'),
 array('4.3','Eficiência operacional','Governança na segurança pública: um estudo de caso das compras públicas na intervenção federal no Estado do Rio de Janeiro.  ','Viana, Bruno Campos','2023','https://repositorio.enap.gov.br/bitstream/1/7623/1/Disserta%C3%A7%C3%A3o%20Bruno%20Viana%20-%20Vers%C3%A3o%20com%20ficha.pdf','compras, públicas, intervenção, federal, estado'),
@@ -556,7 +556,7 @@ array('6.3','Papel dos órgãos de controle','O controle externo de licitações
 array('6.3','Papel dos órgãos de controle','O controle exercido pelo Tribunal de Contas da União em matéria de contratações públicas e a Lei nº 14.133/2021','Fernandes, Ana Luiza Queiroz Melo Jacoby','2022','https://sapientia.pucsp.br/handle/handle/25909','Tribunal de Contas Licitações e contratações públicas Limites do papel do controle Lei nº 14.133/2021'),
 array('7.1','Interpretação da legislação','O espaço de negociação do gestor público em contratações públicas flexíveis','Cukiert, Tamara','2024','https://www.teses.usp.br/teses/disponiveis/2/2134/tde-07012025-180315/pt-br.php','negociação, gestor, público, contratações, espaço'),
 array('7.1','Interpretação da legislação','Regime jurídico de contratações públicas: por que insistir em modelo único e fragmentado?','Correia, Bianca Soares Silva','2023','https://www.teses.usp.br/teses/disponiveis/2/2134/tde-25082023-145101/en.php','regime, modelo, fragmentado, jurídico, contratações'),
-array('7.1','Interpretação da legislação','Prorrogação do prazo de validade de patentes farmacêuticas por meio de ações judiciais: efeitos na centralização de compras','Julia Paranhos','2025','https://pubmed.ncbi.nlm.nih.gov/39813566/','patentes, farmacêuticas, prorrogação, prazo, validade'),
+array('7.1','Interpretação da legislação','Prorrogação do prazo de validade de bibliotecaentes farmacêuticas por meio de ações judiciais: efeitos na centralização de compras','Julia Paranhos','2025','https://pubmed.ncbi.nlm.nih.gov/39813566/','bibliotecaentes, farmacêuticas, prorrogação, prazo, validade'),
 array('7.1','Interpretação da legislação','Algumas implicações dos instrumentos soft law da Agência Nacional de Compras Públicas','Berrio, Luisa Fernanda Bernal ','2023','https://revistas.urosario.edu.co/index.php/sociojuridicos/article/view/13253','Regulação, contratação estatal, Colômbia-Compra Eficiente, sanções de fato ou legais, soft law.'),
 array('7.1','Interpretação da legislação','O impacto e os benefícios da nova Lei de Licitações 14.133/2021 sob a perspectiva dos empresários: uma abordagem usando machine learning','MONTE, Vinícius Freitas','2024','https://riu.ufam.edu.br/handle/prefix/7710','Benefícios;Empresários; PNCP; NLGLC; ME/EPP'),
 array('7.1','Interpretação da legislação','A nova lei de licitações como promotora da maldição do vencedor','SIGNOR et al.,','2021','https://www.redalyc.org/journal/2410/241070355008/','lei nº 14.133/2021, licitação, maldição do vencedor, sobrepreço, preço inexequível.'),
@@ -575,7 +575,7 @@ array('7.1','Interpretação da legislação','A responsabilidade do ordenador d
 array('7.2','Aspectos Jurídicos e Regulatórios','O Acórdão 598/2018-TCU-Plenário: Promovendo Transparência, Eficiência e Competitividade nas Compras Públicas por Dispensa de Licitação - O Caso das Estatais Serpro e Dataprev ','Amaral, Uender Ferreira ','2024','https://repositorio.fgv.br/items/e7432013-5184-44dc-81ff-7fa9d388cf7c','Governo Digital, Eficiência, Economicidade, Abertura de preços, Competitividade'),
 array('7.2','Aspectos Jurídicos e Regulatórios','Uma análise do registro de oportunidade nas licitações de tecnologia da informação e comunicação: perspectivas a partir do acórdão nº 2569/2018 – TCU/Plenário','Santana, Luana Nunes','2022','https://repositorio.idp.edu.br/handle/123456789/3663','Tecnologia da Informação e Comunicação. Cade. TCU Registro de Oportunidade'),
 array('7.2','Jurisprudência e decisões relevantes','Responsabilidade por pesquisa de preços em licitações na visão do Tribunal de Contas da União','Gamito, Rondini Ingrid','2017','https://tede2.pucsp.br/handle/handle/37306','Licitação Pesquisa de preços Economicidade Eficiência Responsabilização Servidores'),
-array('7.3',' Modelos de contratação e tipos de licitação ','Contratação de eventos públicos no Brasil: um estudo sobre instrumentos contratuais e melhores práticas a partir dos modelos dos carnavais de rua','Santos, Alessandro Matheus Marques','2021','https://repositorio.fgv.br/items/9659a451-f3f4-4cdf-a57a-c4f98911ce79','Direito Administrativo. Licitações Públicas. Processo Administrativo. Patrocínio. Eventos Públicos. Carnaval. '),
+array('7.3',' Modelos de contratação e tipos de licitação ','Contratação de eventos públicos no Brasil: um estudo sobre instrumentos contratuais e melhores práticas a partir dos modelos dos carnavais de rua','Santos, Alessandro Matheus Marques','2021','https://repositorio.fgv.br/items/9659a451-f3f4-4cdf-a57a-c4f98911ce79','Direito Administrativo. Licitações Públicas. Processo Administrativo. bibliotecarocínio. Eventos Públicos. Carnaval. '),
 array('7.3','Modelos de contratação e tipos de licitação','Leilão aberto versus leilão selado: evidência com dados brasileiros de compras governamentais','Souza, Anderson Cardoso Pinto de','2016','https://www.teses.usp.br/teses/disponiveis/12/12138/tde-04032016-113403/pt-br.php','Leilão aberto, leilão selado, dados, compras governamentais'),
 array('7.3','Aspectos Jurídicos e Regulatórios','Uma proposta de arquitetura para gestão de Atas de Registro de Preços','Magalhães, Fábio Arruda','2022','https://repositorio.ufrn.br/items/d2497f1c-2dfd-43b9-97b6-3fbaa20301d6','Ata de registro de preços Arquitetura de software Design science research Compras governamentais'),
 array('7.3','Aspectos Jurídicos e Regulatórios','Pregões eletrônicos de bens e serviços administrativos: uma análise das causas de cancelamentos de itens no âmbito do Ministério da Saúde','Souza, Suzana de Abreu Ribeiro de','2024','https://repositorio.ufsc.br/handle/123456789/263779','Pregões eletrônicos, bens e serviços,administrativos'),

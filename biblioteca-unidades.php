@@ -14,10 +14,10 @@ if(!function_exists('add_action')){
 }
 
 // setup
-define('PAT_PLUGIN_URL', __FILE__);
+define('BIBLIOTECA_PLUGIN_URL', __FILE__);
 
-register_activation_hook(PAT_PLUGIN_URL, 'pat_table_creator');
-// register_uninstall_hook(PAT_PLUGIN_URL, 'pat_plugin');
+register_activation_hook(BIBLIOTECA_PLUGIN_URL, 'biblioteca_table_creator');
+// register_uninstall_hook(BIBLIOTECA_PLUGIN_URL, 'biblioteca_plugin');
 // Hook de desinstalação
 register_uninstall_hook(__FILE__, 'biblioteca_plugin_uninstall');
 
@@ -26,17 +26,17 @@ include('functions.php');
 include('enqueue.php');
 
 
-add_action('admin_menu', 'pat_da_display_esm_menu');
-add_action('admin_enqueue_scripts', 'pat_admin_enqueue_css');
+add_action('admin_menu', 'biblioteca_da_display_esm_menu');
+add_action('admin_enqueue_scripts', 'biblioteca_admin_enqueue_css');
 
 
 
 // exclui dados do banco de dados
-register_deactivation_hook(__FILE__, 'cwpai_exclude_data_from_xyztable');
+register_deactivation_hook(__FILE__, 'exclude_data_from_biblioteca');
 
 
 
 // insere dados no banco
-register_activation_hook(__FILE__, 'cwpai_insert_data_into_pat_table');
+register_activation_hook(__FILE__, 'cwpai_insert_data_into_biblioteca_table');
 
 

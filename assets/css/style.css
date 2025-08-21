@@ -1,29 +1,29 @@
 
-.content-pat h1.title {
+.content-biblioteca h1.title {
     text-align: center;
     color:#000;
 }
 table {border-collapse: collapse;}
 table th {text-align: left;}
 
-.content-pat .cont{
+.content-biblioteca .cont{
     display: flex;
     align-items: center;
     width: 600px;
     margin-bottom: 10px;
 }
-.content-pat .cont input{
+.content-biblioteca .cont input{
     width: 500px;
 }
-.content-pat .cont .esq{
+.content-biblioteca .cont .esq{
     width: 150px;
 }
-.content-pat .cont .esq span {
+.content-biblioteca .cont .esq span {
     font-size: 16px;
     color: #000;
     font-weight: 400;
 }
-.content-pat .btn-pat {
+.content-biblioteca .btn-biblioteca {
     background: #00648b;
     color: #fff;
     font-weight: 500;
@@ -38,12 +38,12 @@ table th {text-align: left;}
 .busca input {
     width: 600px;
 }
-.content-pat .alert {
+.content-biblioteca .alert {
     color: red;
     margin: 0;
 }
 .busca h3.subtitle,
-.content-pat h2.subtitle {
+.content-biblioteca h2.subtitle {
     text-align: center;
     font-size: 24px;
     margin: 0 0 24px 0;
@@ -54,7 +54,7 @@ table th {text-align: left;}
     margin-bottom: 8px!important;
 }
 
-.content-pat h3.description {
+.content-biblioteca h3.description {
     margin: 16px 0 8px 0;
 }
 .btn-editar{

@@ -17,7 +17,7 @@ if(isset($_POST['input'])){
     if($query > 0){
         
         ?>
-        <div class="content-pat">
+        <div class="content-biblioteca">
 
             <table class="table table-bordered table-striped mt-4" border="1" cellpadding="10" width="90%">
                 <thead>
@@ -47,8 +47,8 @@ if(isset($_POST['input'])){
                         <td><?php echo $row->ano;?></td>
                         <td><?php echo $row->link;?></td>
                         <td><?php echo $row->palavra_chave;?></td>
-                        <td><a href="admin.php?page=update-pat&id=<?php echo $row->id;?>" class="btn-editar">EDITAR</a></td>
-                        <td><a href="admin.php?page=delete-pat&id=<?php echo $row->id;?>" class="btn-deletar">DELETAR</a></td>
+                        <td><a href="admin.php?page=update-biblioteca&id=<?php echo $row->id;?>" class="btn-editar">EDITAR</a></td>
+                        <td><a href="admin.php?page=delete-biblioteca&id=<?php echo $row->id;?>" class="btn-deletar">DELETAR</a></td>
                     </tr>
                     <?php }?>
                 </tbody>
