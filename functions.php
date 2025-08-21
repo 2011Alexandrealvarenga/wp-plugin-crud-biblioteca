@@ -19,13 +19,13 @@ function pat_table_creator()
             CREATE TABLE $table_name(
             id mediumint(11) NOT NULL AUTO_INCREMENT,
 
-            id_item TEXT NOT NULL,
-            categoria TEXT NOT NULL,
+            id_item varchar(10) NOT NULL,
+            categoria varchar(350) NOT NULL,
             titulo TEXT NOT NULL,
-            autor TEXT NOT NULL,
-            ano TEXT NOT NULL,
+            autor varchar(100) NOT NULL,
+            ano varchar(5) NOT NULL,
             link TEXT NOT NULL,
-            palavra_chave text NOT NULL,
+            palavra_chave varchar(100) NOT NULL,
 
             PRIMARY KEY id(id)
             )$charset_collate;";
