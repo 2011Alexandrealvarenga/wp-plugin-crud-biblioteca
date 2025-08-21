@@ -5,6 +5,7 @@ require_once('../../../wp-config.php');
 if(isset($_POST['input'])){
     $input = $_POST['input'];
     $query = $wpdb->get_results("SELECT * FROM wp_biblioteca WHERE 
+        id_item LIKE '%{$input}%' OR
         categoria LIKE '%{$input}%' OR
         titulo LIKE '%{$input}%' OR 
         autor LIKE '%{$input}%' OR 
@@ -22,6 +23,7 @@ if(isset($_POST['input'])){
                 <thead>
                     <tr>
                         <th>ID</th>  
+                        <th>ID ITEM</th>
                         <th>Categoria</th>
                         <th>Titulo</th>  
                         <th>Autor</th>
@@ -38,6 +40,7 @@ if(isset($_POST['input'])){
                     foreach($query as $row){?>
                     <tr>
                         <td><?php echo $row->id;?></td>
+                        <td><?php echo $row->id_item;?></td>
                         <td><?php echo $row->categoria;?></td>
                         <td><?php echo $row->titulo;?></td>
                         <td><?php echo $row->autor;?></td>
