@@ -155,7 +155,7 @@ function da_biblioteca_list_callback()
                 $("#live_search").keyup(function(){
                     var input = $(this).val();
                     // alert(input);
-                    var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/Wordpress-Plugin-CRUD-biblioteca/busca-resultado.php";
+                    var url_search =  "<?php echo site_url(); ?>/wp-content/plugins/wp-plugin-crud-biblioteca/busca-resultado.php";
                     
                     if(input != ""){
                         $.ajax({                      
